@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "tsx watch ./Source/Main.ts",
     "gen:index": "node ./Scripts/GenerateIndex.js",
+    "gen:index:watcher": "node ./Scripts/Watcher.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

@@ -2,11 +2,9 @@ import { Component } from "./Component"
 import { Class } from "./Helpers"
 
 export class Entity {
-    private static nextId = 1
     private components: Map<string, Component> = new Map()
 
     constructor(
-        public readonly id: number,
         public readonly name: string
     ) {}
 
@@ -45,9 +43,5 @@ export class Entity {
         if (!this.components.delete(componentClass.name)) {
             throw new Error(`Component ${componentClass.name} not found in entity ${this.name}`)
         }
-    }
-
-    static create(name: string): Entity {
-        return new Entity(Entity.nextId++, name)
     }
 }

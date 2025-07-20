@@ -1,9 +1,11 @@
 import { Age, Email, PersonName } from "@/Shared"
-import { StudentUpdatedTag } from "../Tags"
 import { Context, ContextSystem } from "@/Core"
+import { StudentUpdated } from "../Components"
 
 export class UpdateStudentSystem extends ContextSystem {
     async execute(ctx: Context) {
+        if (ctx.has("ValidationFailed")) return
+
         const user = ctx.getEntity("user")
         const guardian = ctx.getEntity("guardian")
 
@@ -27,7 +29,7 @@ export class UpdateStudentSystem extends ContextSystem {
         })
 
         const student = ctx.getEntity("student")
-        student.add(new StudentUpdatedTag)
+        student.add(new StudentUpdated)
 
         console.log(`Estudante criado com sucesso!`)
         console.log(studentDto)

@@ -1,11 +1,11 @@
 import { Age, Email, PersonName } from "@/Shared"
-import { StudentUpdatedTag } from "../Tags"
 import { Context, HttpContextPresenter, HttpResponse, HttpStatus } from "@/Core"
+import { StudentUpdated } from "../Components"
 
 export class UpdatedStudentPresenter extends HttpContextPresenter {
     execute(ctx: Context): Promise<void> | void {
         const student = ctx.getEntity("student")
-        if (!student.has(StudentUpdatedTag)) return
+        if (!student.has(StudentUpdated)) return
 
         const user = ctx.getEntity("user")
         const guardian = ctx.getEntity("guardian")

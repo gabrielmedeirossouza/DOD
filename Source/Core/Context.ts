@@ -11,7 +11,7 @@ export type ContextCreateResult<T extends string[]> =
         [K in T[number]]: Entity
     }
 
-export class Context {
+export class Context extends Entity {
     private entities: Map<string, Entity> = new Map()
     private systems: (EntitySystem | ContextSystem)[] = []
 
@@ -63,9 +63,9 @@ export class Context {
     }
 
     static create<T extends string[]>(...entityNames: T): ContextCreateResult<T> {
-        const context = new Context()
+        const context = new Context("Context")
         for (const name of entityNames) {
-            const entity = new Entity(context.entities.size + 1, name)
+            const entity = new Entity(name)
             context.entities.set(name, entity)
         }
 

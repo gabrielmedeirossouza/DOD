@@ -1,5 +1,5 @@
 import { Context } from "./Core"
-import { Age, ConsoleHttpPresenterHandler, Email, PersonName, ValidateEmailSystem } from "./Shared"
+import { Age, AgeValidationFailedPresenter, ConsoleHttpPresenterHandler, Email, EmailValidationFailedPresenter, PersonName, PersonNameValidationFailedPresenter, ValidateAgeSystem, ValidateEmailSystem, ValidatePersonNameSystem, ValidationFailedPresenter } from "./Shared"
 import { UpdatedStudentPresenter, UpdateStudentSystem } from "./Features/Student"
 
 const { ctx, user, guardian } = Context.create("student", "user", "guardian")
@@ -12,9 +12,17 @@ guardian.add(new PersonName("Edmar Aparecida de Oliveira Medeiros Souza"))
 guardian.add(new Email("edmar@mail.com"))
 guardian.add(new Age(55))
 
+const presenterHandler = new ConsoleHttpPresenterHandler()
+
 ctx.addSystem(
-    new UpdateStudentSystem,
+    new ValidatePersonNameSystem,
     new ValidateEmailSystem,
-    new UpdatedStudentPresenter(new ConsoleHttpPresenterHandler)
+    new ValidateAgeSystem,
+    new UpdateStudentSystem,
+    new AgeValidationFailedPresenter(presenterHandler),
+    new PersonNameValidationFailedPresenter(presenterHandler),
+    new EmailValidationFailedPresenter(presenterHandler),
+    new ValidationFailedPresenter(presenterHandler),
+    new UpdatedStudentPresenter(presenterHandler)
 )
 ctx.execute()
