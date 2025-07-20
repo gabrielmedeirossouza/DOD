@@ -1,5 +1,5 @@
-import { StudentUpdatedTag } from "@/Features/Student"
-import { Age, Email, PersonName } from "@/Shared/Components"
+import { Age, Email, PersonName } from "@/Shared"
+import { StudentUpdatedTag } from "../Tags"
 
 export class UpdatedStudentPresenter extends HttpPresenter {
     execute(ctx: Context): Promise<void> | void {

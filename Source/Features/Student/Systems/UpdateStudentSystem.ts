@@ -1,4 +1,4 @@
-import { Age, Email, PersonName } from "@/Shared/Components";
+import { Age, Email, PersonName } from "@/Shared"
 import { StudentUpdatedTag } from "../Tags"
 
 export class UpdateStudentSystem implements System {
