@@ -8,7 +8,9 @@ export enum HttpStatus {
     InternalServerError = 500,
 }
 
+export type HttpResponseData = Record<string, any>;
+
 export interface HttpResponse {
     status: HttpStatus
-    data: Record<string, any>
+    data: HttpResponseData
 }

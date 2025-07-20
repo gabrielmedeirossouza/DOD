@@ -1,31 +1,20 @@
 import './Globals'
-import { Age, Email, GuardianTag, PersonName, StudentTag, UserTag } from "./Components"
-import { ConsoleHttpPresenter } from "./Shared"
-import { UpdatedStudentPresenterSystem, UpdateStudentSystem } from "./Systems"
+import { Age, Email, PersonName } from "./Shared/Components"
+import { Context } from "./Core/Context"
+import { UpdateStudentSystem } from "./Features/Student/Systems"
+import { ConsoleHttpPresenterHandler } from "./Shared/Presenters"
+import { UpdatedStudentPresenter } from "./Features/Student/Presenters"
 
-const world = new World
-const em = world.entityManager
+const { ctx, user, guardian } = Context.create("student", "user", "guardian")
 
-const studentEntity = em.createEntity("student")
-const userEntity = em.createEntity("user")
-const guardianEntity = em.createEntity("guardian")
+user.add(new PersonName("Gabriel Medeiros Souza"))
+user.add(new Email("gabriel@mail.com"))
+user.add(new Age(27))
 
-em.addComponent(studentEntity, new StudentTag)
-const studentChildBuffer = em.addBuffer(studentEntity, ChildReference)
+guardian.add(new PersonName("Edmar Aparecida de Oliveira Medeiros Souza"))
+guardian.add(new Email("edmar@mail.com"))
+guardian.add(new Age(55))
 
-studentChildBuffer.push(new ChildReference(userEntity))
-studentChildBuffer.push(new ChildReference(guardianEntity))
-
-em.addComponent(userEntity, new UserTag)
-em.addComponent(userEntity, new PersonName("Gabriel Medeiros Souza"))
-em.addComponent(userEntity, new Email("gabriel@mail.com"))
-em.addComponent(userEntity, new Age(27))
-
-em.addComponent(guardianEntity, new GuardianTag)
-em.addComponent(guardianEntity, new PersonName("Edmar Aparecida de Oliveira Medeiros Souza"))
-em.addComponent(guardianEntity, new Email("edmar@mail.com"))
-em.addComponent(guardianEntity, new Age(55))
-
-world.systemManager.addSystem(new UpdateStudentSystem)
-world.systemManager.addSystem(new UpdatedStudentPresenterSystem(new ConsoleHttpPresenter))
-world.systemManager.executeSystems()
+ctx.addSystem(new UpdateStudentSystem)
+ctx.addSystem(new UpdatedStudentPresenter(new ConsoleHttpPresenterHandler))
+ctx.executeSystems()

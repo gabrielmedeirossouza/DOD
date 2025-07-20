@@ -1,5 +1,11 @@
-import { HttpResponse } from "./HttpResponse"
+import { Context } from "./Context"
+import { HttpResponseHandler } from "./HttpPresenterHandler"
+import { System } from "./System"
 
-export interface HttpPresenter {
-    present(response: HttpResponse): Promise<void> | void
+export abstract class HttpPresenter implements System {
+    constructor(
+        protected presenter: HttpResponseHandler
+    ) {}
+
+    abstract execute(ctx: Context): Promise<void> | void
 }
