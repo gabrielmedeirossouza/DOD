@@ -1,3 +1,7 @@
+import { ContextSystem } from "./ContextSystem"
+import { Entity } from "./Entity"
+import { EntitySystem } from "./EntitySystem"
+
 export type ContextCreateResult<T extends string[]> =
     {
         ctx: Context
@@ -9,7 +13,7 @@ export type ContextCreateResult<T extends string[]> =
 
 export class Context {
     private entities: Map<string, Entity> = new Map()
-    private systems: System[] = []
+    private systems: (EntitySystem | ContextSystem)[] = []
 
     getEntity(name: string): Entity {
         const entity = this.entities.get(name)
@@ -41,13 +45,20 @@ export class Context {
         return this.entities.has(name)
     }
 
-    addSystem(system: System): void {
-        this.systems.push(system)
+    addSystem(...systems: (EntitySystem | ContextSystem)[]): void {
+        this.systems.push(...systems)
     }
 
-    async executeSystems(): Promise<void> {
+    async execute(): Promise<void> {
         for (const system of this.systems) {
-            await system.execute(this)
+            if (system.type === "ContextSystem") {
+                await system.execute(this)
+                continue
+            }
+
+            for (const entity of this.entities.values()) {
+                await system.execute(this, entity)
+            }
         }
     }
 

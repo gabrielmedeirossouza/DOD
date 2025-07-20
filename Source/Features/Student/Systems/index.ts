@@ -1,1 +1,1 @@
-export * from './UpdateStudentSystem';
+export * from './UpdateStudentSystem'

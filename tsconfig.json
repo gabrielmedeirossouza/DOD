@@ -13,9 +13,6 @@
         "baseUrl": "./",
         "paths": {
             "@/*": ["./Source/*"]
-        },
-        "typeRoots": [
-            "./Global.d.ts"
-        ]
+        }
     }
 }

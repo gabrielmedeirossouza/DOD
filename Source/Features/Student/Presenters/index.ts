@@ -1,1 +1,1 @@
-export * from './UpdatedStudentPresenter';
+export * from './UpdatedStudentPresenter'

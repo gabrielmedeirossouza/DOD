@@ -1,7 +1,8 @@
 import { Age, Email, PersonName } from "@/Shared"
 import { StudentUpdatedTag } from "../Tags"
+import { Context, ContextSystem } from "@/Core"
 
-export class UpdateStudentSystem implements System {
+export class UpdateStudentSystem extends ContextSystem {
     async execute(ctx: Context) {
         const user = ctx.getEntity("user")
         const guardian = ctx.getEntity("guardian")

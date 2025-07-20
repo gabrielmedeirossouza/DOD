@@ -1,5 +1,5 @@
-import './Globals'
-import { Age, ConsoleHttpPresenterHandler, Email, PersonName } from "./Shared"
+import { Context } from "./Core"
+import { Age, ConsoleHttpPresenterHandler, Email, PersonName, ValidateEmailSystem } from "./Shared"
 import { UpdatedStudentPresenter, UpdateStudentSystem } from "./Features/Student"
 
 const { ctx, user, guardian } = Context.create("student", "user", "guardian")
@@ -12,6 +12,9 @@ guardian.add(new PersonName("Edmar Aparecida de Oliveira Medeiros Souza"))
 guardian.add(new Email("edmar@mail.com"))
 guardian.add(new Age(55))
 
-ctx.addSystem(new UpdateStudentSystem)
-ctx.addSystem(new UpdatedStudentPresenter(new ConsoleHttpPresenterHandler))
-ctx.executeSystems()
+ctx.addSystem(
+    new UpdateStudentSystem,
+    new ValidateEmailSystem,
+    new UpdatedStudentPresenter(new ConsoleHttpPresenterHandler)
+)
+ctx.execute()

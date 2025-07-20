@@ -1,3 +1,4 @@
+import { Component } from "./Component"
 import { Class } from "./Helpers"
 
 export class Entity {

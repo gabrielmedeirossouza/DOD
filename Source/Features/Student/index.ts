@@ -1,3 +1,3 @@
-export * from './Tags';
-export * from './Presenters';
-export * from './Systems';
+export * from './Tags'
+export * from './Presenters'
+export * from './Systems'
