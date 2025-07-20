@@ -1,9 +1,6 @@
 import './Globals'
-import { Age, Email, PersonName } from "./Shared/Components"
-import { Context } from "./Core/Context"
-import { UpdateStudentSystem } from "./Features/Student/Systems"
-import { ConsoleHttpPresenterHandler } from "./Shared/Presenters"
-import { UpdatedStudentPresenter } from "./Features/Student/Presenters"
+import { Age, ConsoleHttpPresenterHandler, Email, PersonName } from "./Shared"
+import { UpdatedStudentPresenter, UpdateStudentSystem } from "./Features/Student"
 
 const { ctx, user, guardian } = Context.create("student", "user", "guardian")
 
