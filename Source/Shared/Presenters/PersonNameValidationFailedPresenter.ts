@@ -1,7 +1,10 @@
-import { Context, Entity, HttpEntityPresenter, validationError } from "@/Core"
+import { Context } from "@/Core/Contexts"
+import { Entity } from "@/Core/Entities"
+import { validationError } from "@/Core/Miscellaneous"
+import { HttpEntityPresenterRunner } from "@/Core/Runners"
 import { PersonNameMustContainFirstAndLastName, PersonNameTooLong } from "../Components"
 
-export class PersonNameValidationFailedPresenter extends HttpEntityPresenter {
+export class PersonNameValidationFailedPresenter extends HttpEntityPresenterRunner {
     execute(_: Context, entity: Entity): Promise<void> | void {
         if (!entity.has("PersonNameValidationFailed")) return
 
@@ -9,7 +12,7 @@ export class PersonNameValidationFailedPresenter extends HttpEntityPresenter {
             this.presenter.accumulate(
                 validationError(
                     entity.name,
-                    "PersonNameRequired",
+                    "person_name_required",
                     "Person name is required."
                 )
             )
@@ -20,7 +23,7 @@ export class PersonNameValidationFailedPresenter extends HttpEntityPresenter {
             this.presenter.accumulate(
                 validationError(
                     entity.name,
-                    "PersonNameTooLong",
+                    "person_name_too_long",
                     `Person name is too long: ${personNameTooLong.value} (max length: ${personNameTooLong.maxLength})`,
                     {
                         value: personNameTooLong.value,
@@ -35,7 +38,7 @@ export class PersonNameValidationFailedPresenter extends HttpEntityPresenter {
             this.presenter.accumulate(
                 validationError(
                     entity.name,
-                    "PersonNameMustContainFirstAndLastName",
+                    "person_name_must_contain_first_and_last_name",
                     `Person name must contain first and last name: ${personNameMustContain.value}`,
                     {
                         value: personNameMustContain.value

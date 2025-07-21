@@ -1,6 +1,6 @@
-import { HttpResponse, HttpResponseData, HttpResponseHandler } from "@/Core"
+import { HttpResponse, HttpResponseData, HttpPresenterHandler } from "@/Core/Presenters"
 
-export class ConsoleHttpPresenterHandler implements HttpResponseHandler {
+export class ConsoleHttpPresenterHandler implements HttpPresenterHandler {
     private accumulated: HttpResponseData[] = []
 
     accumulate(response: HttpResponseData): void {

@@ -9,7 +9,7 @@ export type ValidationError =
         [key: string]: any
     }
 
-export function validationError(entity: string, code: string, message: string, details?: Record<string, any>): ValidationError {
+export function validationError(entity: string, code: Lowercase<string>, message: string, details?: Record<string, any>): ValidationError {
     return {
         entity,
         code,

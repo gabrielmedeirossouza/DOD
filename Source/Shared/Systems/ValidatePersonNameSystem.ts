@@ -1,7 +1,9 @@
-import { Context, Entity, EntitySystem } from "@/Core"
+import { Context } from "@/Core/Contexts"
+import { Entity } from "@/Core/Entities"
+import { EntityRunner } from "@/Core/Runners"
 import { PersonName, PersonNameMustContainFirstAndLastName, PersonNameRequired, PersonNameTooLong, PersonNameValidationFailed, ValidationFailed } from "../Components"
 
-export class ValidatePersonNameSystem extends EntitySystem {
+export class ValidatePersonNameSystem extends EntityRunner {
     private MAX_NAME_LENGTH = 200
 
     execute(ctx: Context, entity: Entity): Promise<void> | void {

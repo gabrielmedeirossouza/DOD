@@ -1,5 +1,4 @@
 export * from './AgeValidationFailedPresenter'
-export * from './ConsoleHttpPresenter'
 export * from './EmailValidationFailedPresenter'
 export * from './PersonNameValidationFailedPresenter'
 export * from './ValidationFailedPresenter'

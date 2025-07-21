@@ -1,11 +1,12 @@
-import { Age, Email, PersonName } from "@/Shared"
-import { Context, HttpContextPresenter, HttpResponse, HttpStatus } from "@/Core"
-import { StudentUpdated } from "../Components"
+import { Context } from "@/Core/Contexts"
+import { removeUndefined } from "@/Core/Miscellaneous"
+import { HttpResponse, HttpStatus } from "@/Core/Presenters"
+import { HttpSystemPresenterRunner } from "@/Core/Runners"
+import { Age, Email, PersonName } from "@/Shared/Components"
 
-export class UpdatedStudentPresenter extends HttpContextPresenter {
+export class UpdatedStudentPresenter extends HttpSystemPresenterRunner {
     execute(ctx: Context): Promise<void> | void {
-        const student = ctx.getEntity("student")
-        if (!student.has(StudentUpdated)) return
+        if (!ctx.has("StudentUpdated")) return
 
         const user = ctx.getEntity("user")
         const guardian = ctx.getEntity("guardian")
@@ -18,11 +19,11 @@ export class UpdatedStudentPresenter extends HttpContextPresenter {
                     email: user.get(Email).value,
                     age: user.get(Age).value
                 },
-                guardian: {
+                guardian: removeUndefined({
                     name: guardian.get(PersonName).value,
                     email: guardian.get(Email).value,
                     age: guardian.attemptGet(Age)?.value
-                }
+                })
             }
         }
 

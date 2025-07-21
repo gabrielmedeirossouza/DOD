@@ -1,7 +1,9 @@
-import { Context, Entity, EntitySystem } from "@/Core"
+import { Context } from "@/Core/Contexts"
+import { Entity } from "@/Core/Entities"
+import { EntityRunner } from "@/Core/Runners"
 import { Age, AgeOutOfRange, AgeValidationFailed, ValidationFailed } from "../Components"
 
-export class ValidateAgeSystem extends EntitySystem {
+export class ValidateAgeSystem extends EntityRunner {
     private AGE_MIN = 16
     private AGE_MAX = 120
 

@@ -1,7 +1,9 @@
-import { Context, Entity, EntitySystem } from "@/Core"
+import { Context } from "@/Core/Contexts"
+import { Entity } from "@/Core/Entities"
+import { EntityRunner } from "@/Core/Runners"
 import { Email, EmailMalformed, EmailRequired, EmailTooLong, EmailValidationFailed, ValidationFailed } from "../Components"
 
-export class ValidateEmailSystem extends EntitySystem {
+export class ValidateEmailSystem extends EntityRunner {
     private EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     private EMAIL_MAX_LENGTH = 254
 

@@ -1,7 +1,10 @@
-import { Context, Entity, HttpEntityPresenter, validationError } from "@/Core"
+import { Context } from "@/Core/Contexts"
+import { Entity } from "@/Core/Entities"
+import { validationError } from "@/Core/Miscellaneous"
+import { HttpEntityPresenterRunner } from "@/Core/Runners"
 import { EmailMalformed, EmailTooLong } from "../Components"
 
-export class EmailValidationFailedPresenter extends HttpEntityPresenter {
+export class EmailValidationFailedPresenter extends HttpEntityPresenterRunner {
     execute(_: Context, entity: Entity): Promise<void> | void {
         if (!entity.has("EmailValidationFailed")) return
 
@@ -9,7 +12,7 @@ export class EmailValidationFailedPresenter extends HttpEntityPresenter {
             this.presenter.accumulate(
                 validationError(
                     entity.name,
-                    "EmailRequired",
+                    "email_required",
                     "Email is required."
                 )
             )
@@ -20,7 +23,7 @@ export class EmailValidationFailedPresenter extends HttpEntityPresenter {
             this.presenter.accumulate(
                 validationError(
                     entity.name,
-                    "EmailTooLong",
+                    "email_too_long",
                     `Email is too long: ${emailTooLong.value} (max length: ${emailTooLong.maxLength})`,
                     {
                         value: emailTooLong.value,
@@ -35,7 +38,7 @@ export class EmailValidationFailedPresenter extends HttpEntityPresenter {
             this.presenter.accumulate(
                 validationError(
                     entity.name,
-                    "EmailMalformed",
+                    "email_malformed",
                     `Email is malformed: ${emailMalformed.value} (pattern: ${emailMalformed.pattern})`,
                     {
                         value: emailMalformed.value,

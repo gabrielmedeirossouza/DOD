@@ -1,6 +1,6 @@
-import { ContextSystem } from "./ContextSystem"
-import { Entity } from "./Entity"
-import { EntitySystem } from "./EntitySystem"
+import { SystemRunner } from "../Runners/SystemRunner"
+import { Entity } from "../Entities/Entity"
+import { EntityRunner } from "../Runners/EntityRunner"
 
 export type ContextCreateResult<T extends string[]> =
     {
@@ -13,7 +13,11 @@ export type ContextCreateResult<T extends string[]> =
 
 export class Context extends Entity {
     private entities: Map<string, Entity> = new Map()
-    private systems: (EntitySystem | ContextSystem)[] = []
+    private systems: (EntityRunner | SystemRunner)[] = []
+
+    private constructor(name: string) {
+        super(name)
+    }
 
     getEntity(name: string): Entity {
         const entity = this.entities.get(name)
@@ -45,13 +49,13 @@ export class Context extends Entity {
         return this.entities.has(name)
     }
 
-    addSystem(...systems: (EntitySystem | ContextSystem)[]): void {
+    addSystem(...systems: (EntityRunner | SystemRunner)[]): void {
         this.systems.push(...systems)
     }
 
     async execute(): Promise<void> {
         for (const system of this.systems) {
-            if (system.type === "ContextSystem") {
+            if (system.type === "system_runner") {
                 await system.execute(this)
                 continue
             }
@@ -60,10 +64,14 @@ export class Context extends Entity {
                 await system.execute(this, entity)
             }
         }
+
+        this.systems = []
     }
 
     static create<T extends string[]>(...entityNames: T): ContextCreateResult<T> {
         const context = new Context("Context")
+        context.addEntity(context)
+
         for (const name of entityNames) {
             const entity = new Entity(name)
             context.entities.set(name, entity)

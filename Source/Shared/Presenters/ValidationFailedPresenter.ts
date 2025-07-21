@@ -1,6 +1,8 @@
-import { Context, HttpContextPresenter, HttpStatus } from "@/Core"
+import { Context } from "@/Core/Contexts"
+import { HttpStatus } from "@/Core/Presenters"
+import { HttpSystemPresenterRunner } from "@/Core/Runners"
 
-export class ValidationFailedPresenter extends HttpContextPresenter {
+export class ValidationFailedPresenter extends HttpSystemPresenterRunner {
     execute(ctx: Context): Promise<void> | void {
         if (!ctx.has("ValidationFailed")) return
 
@@ -14,7 +16,7 @@ export class ValidationFailedPresenter extends HttpContextPresenter {
             return {
                 status: HttpStatus.BadRequest,
                 data: {
-                    code: "ValidationFailed",
+                    code: "validation_failed",
                     message: `Validation failed: ${accumulatedCodes}.`,
                     details: accumulated
                 }

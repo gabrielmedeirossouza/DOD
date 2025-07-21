@@ -1,5 +1,5 @@
-import { Component } from "./Component"
-import { Class } from "./Helpers"
+import { Component } from "../Components/Component"
+import { Class } from "../Miscellaneous/Helpers"
 
 export class Entity {
     private components: Map<string, Component> = new Map()

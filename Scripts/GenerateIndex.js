@@ -3,7 +3,7 @@ import { join, resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
 
 const SOURCE_DIR = '../Source'
-const SKIP_DIRS = ['Features']
+const SKIP_DIRS = ['Features', 'Core', 'Shared', 'Source']
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)

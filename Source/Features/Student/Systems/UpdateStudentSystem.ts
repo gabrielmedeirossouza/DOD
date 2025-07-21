@@ -1,8 +1,9 @@
-import { Age, Email, PersonName } from "@/Shared"
-import { Context, ContextSystem } from "@/Core"
+import { Context } from "@/Core/Contexts"
+import { SystemRunner } from "@/Core/Runners"
+import { Age, Email, PersonName } from "@/Shared/Components"
 import { StudentUpdated } from "../Components"
 
-export class UpdateStudentSystem extends ContextSystem {
+export class UpdateStudentSystem extends SystemRunner {
     async execute(ctx: Context) {
         if (ctx.has("ValidationFailed")) return
 
@@ -28,8 +29,7 @@ export class UpdateStudentSystem extends ContextSystem {
             }, 1000)
         })
 
-        const student = ctx.getEntity("student")
-        student.add(new StudentUpdated)
+        ctx.add(new StudentUpdated)
 
         console.log(`Estudante criado com sucesso!`)
         console.log(studentDto)
