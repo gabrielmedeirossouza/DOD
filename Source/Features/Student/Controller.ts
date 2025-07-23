@@ -1,5 +1,5 @@
 import { Context } from "@/Core/Contexts"
-import { HttpController, HttpControllerAssertion } from "@/Core/Controllers"
+import { Controller, ControllerAssertion } from "@/Core/Controllers"
 import { AgeValidationFailedPresenter, EmailValidationFailedPresenter, PersonNameValidationFailedPresenter, ValidationFailedPresenter } from "@/Shared/Presenters"
 import { UpdatedStudentPresenter } from "./Presenters"
 import { HttpPresenterHandler } from "@/Core/Presenters"
@@ -7,7 +7,7 @@ import { ValidateAgeSystem, ValidateEmailSystem, ValidatePersonNameSystem } from
 import { UpdateStudentSystem } from "./Systems"
 import { Age, Email, PersonName } from "@/Shared/Components"
 
-export class UpdateStudentController extends HttpController {
+export class UpdateStudentController extends Controller {
     constructor(
         private presenterHandler: HttpPresenterHandler
     ) {
@@ -17,7 +17,7 @@ export class UpdateStudentController extends HttpController {
     async handle(data: any): Promise<void> {
         const { ctx, user, guardian } = Context.create("user", "guardian")
 
-        const assertion = new HttpControllerAssertion(ctx, this.presenterHandler)
+        const assertion = new ControllerAssertion(ctx, this.presenterHandler)
 
         assertion.assertObject(ctx, "user", data.user)
         assertion.assertString(user, "name", data.user.name)

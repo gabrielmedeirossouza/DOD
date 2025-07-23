@@ -5,7 +5,7 @@ import { validationError } from "../Miscellaneous"
 import { Entity } from "../Entities"
 import { ValidationFailedPresenter } from "@/Shared/Presenters"
 
-export class HttpControllerAssertion {
+export class ControllerAssertion {
     constructor(
         private ctx: Context,
         private presenterHandler: HttpPresenterHandler

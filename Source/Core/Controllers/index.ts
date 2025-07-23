@@ -1,2 +1,2 @@
-export * from './HttpController'
-export * from './HttpControllerAssertion'
+export * from './Controller'
+export * from './ControllerAssertion'
